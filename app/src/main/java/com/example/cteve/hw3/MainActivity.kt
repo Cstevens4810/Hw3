@@ -5,7 +5,9 @@ import android.content.DialogInterface
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.support.v7.app.AlertDialog
+import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.SurfaceView
@@ -13,6 +15,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener
 import android.content.Context.MODE_PRIVATE
 import android.widget.*
 import java.io.*
+import android.widget.Button
 
 
 
@@ -60,6 +63,8 @@ class MainActivity : AppCompatActivity(), OnSeekBarChangeListener
         redBar!!.setOnSeekBarChangeListener(this)
         greenBar!!.setOnSeekBarChangeListener(this)
         blueBar!!.setOnSeekBarChangeListener(this)
+
+
 
 
     }
@@ -118,6 +123,19 @@ class MainActivity : AppCompatActivity(), OnSeekBarChangeListener
         R.id.action_settings -> {
             // User chose the "Settings" item, show the app settings UI...
             true
+        }
+
+        R.id.action_blending ->{
+            val intent = Intent(this, BlendingActivity::class.java)
+            this.startActivity(intent)
+            true
+        }
+
+        R.id.action_main->{
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            true
+
         }
 
         R.id.action_save -> {
