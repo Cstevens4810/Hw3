@@ -43,9 +43,16 @@ class BlendingActivity : AppCompatActivity(), OnSeekBarChangeListener{
 
         colorBar!!.max = 100
 
-        val loadColor1 = findViewById<Button>(R.id.load1)
-        loadColor1.setOnClickListener(View.OnClickListener {
-            val builder = AlertDialog.Builder(this)
+        /*val loadColor1 = findViewById<Button>(R.id.load1)
+        loadColor1.setOnClickListener(View.OnClickListener
+        {
+            Toast.makeText(this,"Creating Intent",Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, MainActivity::class.java)
+            intent.extras.putInt("color",1)
+            startActivityForResult(intent,1)
+
+        }*/
+            /*val builder = AlertDialog.Builder(this)
             builder.setTitle("Name of Color to Load")
 
             val input = EditText(this)
@@ -95,12 +102,18 @@ class BlendingActivity : AppCompatActivity(), OnSeekBarChangeListener{
             { dialog, which -> dialog.cancel() }
             builder.show()
         }
-        )
+        )*/
 
 
         val loadColor2 = findViewById<Button>(R.id.load2)
-        loadColor2.setOnClickListener(View.OnClickListener {
-            val builder = AlertDialog.Builder(this)
+        loadColor2.setOnClickListener(View.OnClickListener
+        {
+
+            val intent = Intent(this, MainActivity::class.java)
+            intent.extras.putInt("color", 2)
+            startActivityForResult(intent, 2)
+        }
+           /* val builder = AlertDialog.Builder(this)
             builder.setTitle("Name of Color to Load")
 
             val input = EditText(this)
@@ -149,8 +162,37 @@ class BlendingActivity : AppCompatActivity(), OnSeekBarChangeListener{
             builder.setNegativeButton("Cancel")
             { dialog, which -> dialog.cancel() }
             builder.show()
+        }*/
+            )
+    }
+
+    fun onClick1(view: View)
+    {
+        Toast.makeText(this,"Creating Intent",Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, MainActivity::class.java)
+        intent.extras.putInt("color",1)
+        startActivityForResult(intent,1)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
+    {
+        if(resultCode == Activity.RESULT_OK && requestCode == 1)
+        {
+            val info = intent.extras
+            val color = info.getInt("color")
+            var surfaceOne = findViewById<SurfaceView>(R.id.surfaceView1)
+
+            surfaceOne.setBackgroundColor(color)
         }
-        )
+
+        else if(resultCode == Activity.RESULT_OK && requestCode == 2)
+        {
+            val info = intent.extras
+            val color = info.getInt("color")
+            var surfaceTwo = findViewById<SurfaceView>(R.id.surfaceView2)
+
+            surfaceTwo.setBackgroundColor(color)
+        }
     }
 
     override fun onProgressChanged(seekBar: SeekBar, progress: Int,

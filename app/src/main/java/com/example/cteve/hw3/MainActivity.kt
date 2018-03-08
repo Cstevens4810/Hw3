@@ -13,6 +13,7 @@ import android.view.MenuItem
 import android.view.SurfaceView
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.content.Context.MODE_PRIVATE
+import android.view.View.VISIBLE
 import android.widget.*
 import java.io.*
 import android.widget.Button
@@ -64,8 +65,19 @@ class MainActivity : AppCompatActivity(), OnSeekBarChangeListener
         greenBar!!.setOnSeekBarChangeListener(this)
         blueBar!!.setOnSeekBarChangeListener(this)
 
+        val info = intent.extras
+        if(info != null)
+        {
+            if(info.containsKey("color"))
+            {
+                var acceptColor = findViewById<Button>(R.id.acceptColor)
+                acceptColor.visibility = View.VISIBLE
+                acceptColor.setOnClickListener(View.OnClickListener {
+                    finish()
 
-
+                })
+            }
+        }
 
     }
 
@@ -102,6 +114,16 @@ class MainActivity : AppCompatActivity(), OnSeekBarChangeListener
                 blueNum!!.text = progress.toString()
             }
         }
+    }
+
+    override fun finish() {
+        val intent = Intent(this, BlendingActivity::class.java)
+
+        var currentColor = (0xff000000 + redBar!!.progress * 0x10000 + greenBar!!.progress * 0x100 + blueBar!!.progress).toInt()
+
+        intent.extras.putInt("color",currentColor)
+        setResult(Activity.RESULT_OK,intent)
+        super.finish()
     }
 
     override fun onStartTrackingTouch(p0: SeekBar?)
