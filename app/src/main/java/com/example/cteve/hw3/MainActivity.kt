@@ -65,16 +65,23 @@ class MainActivity : AppCompatActivity(), OnSeekBarChangeListener
         greenBar!!.setOnSeekBarChangeListener(this)
         blueBar!!.setOnSeekBarChangeListener(this)
 
+        val intent = intent
+
         val info = intent.extras
         if(info != null)
         {
             if(info.containsKey("color"))
             {
-                var acceptColor = findViewById<Button>(R.id.acceptColor)
+                val acceptColor = findViewById<Button>(R.id.acceptColor)
                 acceptColor.visibility = View.VISIBLE
                 acceptColor.setOnClickListener(View.OnClickListener {
-                    finish()
+                    val returnIntent = Intent(this, BlendingActivity::class.java)
 
+                    val currentColor = (0xff000000 + redBar!!.progress * 0x10000 + greenBar!!.progress * 0x100 + blueBar!!.progress).toInt()
+
+                    returnIntent.putExtra("color",currentColor)
+                    setResult(Activity.RESULT_OK,returnIntent)
+                    finish()
                 })
             }
         }
@@ -116,7 +123,7 @@ class MainActivity : AppCompatActivity(), OnSeekBarChangeListener
         }
     }
 
-    override fun finish() {
+   /*override fun finish() {
         val intent = Intent(this, BlendingActivity::class.java)
 
         var currentColor = (0xff000000 + redBar!!.progress * 0x10000 + greenBar!!.progress * 0x100 + blueBar!!.progress).toInt()
@@ -124,7 +131,7 @@ class MainActivity : AppCompatActivity(), OnSeekBarChangeListener
         intent.extras.putInt("color",currentColor)
         setResult(Activity.RESULT_OK,intent)
         super.finish()
-    }
+    }*/
 
     override fun onStartTrackingTouch(p0: SeekBar?)
     {

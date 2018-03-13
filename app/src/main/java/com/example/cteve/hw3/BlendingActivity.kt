@@ -110,8 +110,9 @@ class BlendingActivity : AppCompatActivity(), OnSeekBarChangeListener{
         {
 
             val intent = Intent(this, MainActivity::class.java)
-            intent.extras.putInt("color", 2)
+            intent.putExtra("color", 2)
             startActivityForResult(intent, 2)
+
         }
            /* val builder = AlertDialog.Builder(this)
             builder.setTitle("Name of Color to Load")
@@ -170,7 +171,7 @@ class BlendingActivity : AppCompatActivity(), OnSeekBarChangeListener{
     {
         Toast.makeText(this,"Creating Intent",Toast.LENGTH_SHORT).show()
         val intent = Intent(this, MainActivity::class.java)
-        intent.extras.putInt("color",1)
+        intent.putExtra("color",1)
         startActivityForResult(intent,1)
     }
 
